@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: stg_ecommerce_orders
+    description: >
+      Typed version of RAW_ECOMMERCE_ORDERS — numbers, dates, and
+      Yes/No flags cast to proper Snowflake types instead of raw text.
+    columns:
+      - name: order_id
+        description: >
+          Order identifier from the source data. Not guaranteed unique —
+          the source Kaggle dataset has ~429 order_id values that repeat
+          across genuinely different customers (a data quality quirk in
+          the raw file, not introduced by this pipeline). The uniqueness
+          test below is kept as a warning so this stays visible without
+          blocking builds.
+        tests:
+          - not_null
+          - unique:
+              config:
+                severity: warn
+      - name: category
+        description: Product category (matches the S3 split-file name).
+      - name: source_file
+        description: Which batch file in S3 this row was loaded from.
+      - name: loaded_at
+        description: When this row landed in Snowflake.

@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: raw
+    database: "{{ target.database }}"
+    schema: "{{ target.schema }}"
+    tables:
+      - name: RAW_ECOMMERCE_ORDERS
+        description: >
+          Append-only landing table loaded by src/snowflake/loader.py from
+          the category-split CSV files in S3 (processed/). Every column is
+          VARCHAR here — proper typing happens in stg_ecommerce_orders.

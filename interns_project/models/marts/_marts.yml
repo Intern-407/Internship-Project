@@ -1,0 +1,91 @@
+version: 2
+
+models:
+  - name: gold_monthly_category_performance
+    description: >
+      Revenue, profit, and units sold per product category per month.
+      Built for trend charts on the dashboard.
+    columns:
+      - name: order_month
+        tests:
+          - not_null
+      - name: category
+        tests:
+          - not_null
+
+  - name: gold_country_performance
+    description: Revenue, profit, orders, and customer counts per country.
+    columns:
+      - name: country
+        tests:
+          - not_null
+          - unique
+
+  - name: gold_customer_segment_summary
+    description: Revenue and order metrics rolled up by customer segment (Regular/VIP/etc).
+    columns:
+      - name: customer_segment
+        tests:
+          - not_null
+          - unique
+
+  - name: gold_customer_demographics
+    description: Order and revenue metrics broken down by gender and age bracket.
+    columns:
+      - name: age_group
+        tests:
+          - not_null
+
+  - name: gold_top_customers
+    description: Top 100 customers by total revenue, with segment/country/loyalty context.
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+
+  - name: gold_product_performance
+    description: Revenue, profit, and units sold per product, with category/brand/rating context.
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+
+  - name: gold_marketing_engagement
+    description: >
+      Order volume, coupon usage, cart abandonment, and session behavior
+      broken down by campaign source, device type, and traffic source.
+
+  - name: gold_coupon_performance
+    description: Order count, revenue, and discount totals by coupon code and usage flag.
+
+  - name: gold_shipping_logistics
+    description: Average delivery days and shipping cost by shipping method, delivery status, and warehouse.
+
+  - name: gold_payment_summary
+    description: Order count and revenue by payment method, payment status, and installment plan usage.
+
+  - name: gold_returns_support
+    description: Order and support ticket counts by category, order status, and return reason.
+
+  - name: gold_risk_fraud
+    description: Order count, revenue, and average profit margin by order priority and fraud risk band.
+
+  - name: gold_reviews_sentiment
+    description: Order counts by customer rating and review sentiment.
+
+  - name: gold_order_timing
+    description: Order count and revenue by weekend/weekday and order priority.
+
+  - name: gold_data_quality_flags
+    description: >
+      Monitored data-quality checks against the source dataset, e.g. the
+      429 duplicate order_ids and the fact that brand is statistically
+      independent of product/category (no real product-catalog relationship
+      exists in the source data, so it's tracked rather than fabricated).
+    columns:
+      - name: check_name
+        tests:
+          - not_null
+          - unique
